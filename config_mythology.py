@@ -49,8 +49,6 @@ PHASES = {
                 "label": """Astrology System""",
                 "options": ["Western","Chinese"],
             },
-        },
-
 
         },
         "phase_instructions": "",
