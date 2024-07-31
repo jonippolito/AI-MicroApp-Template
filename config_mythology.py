@@ -52,7 +52,7 @@ PHASES = {
 
         },
         "phase_instructions": "",
-        "user_prompt": "My name is {name}. I was born on {month} {day}. Please provide me my zodiac symbol, and give a short horoscope for the day.",
+        "user_prompt": "My name is {name}. I was born on {month} {day} in {year}. Please provide me my zodiac symbol using the {system} system, and give a short horoscope for the day.",
         "ai_response": True,
         "allow_skip": True,
         "show_prompt": True,
