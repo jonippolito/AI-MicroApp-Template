@@ -1,4 +1,4 @@
-APP_TITLE = "Zodiac Symbol"
+APP_TITLE = "Jon's Mythology Quiz"
 APP_INTRO = """This is a demonstration app that determines a users zodiac symbol based on their birth month and date. 
 """
 
