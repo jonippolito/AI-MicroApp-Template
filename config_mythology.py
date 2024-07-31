@@ -37,7 +37,19 @@ PHASES = {
                 "label": """What is your birth day?""",
                 "min_value": 1,
                 "max_value":31
-            }
+            },
+            "year": {
+                "type": "number_input",
+                "label": """What is your birth year?""",
+                "min_value": 1900,
+                "max_value":2020
+            },
+            "system": {
+                "type": "selectbox",
+                "label": """Astrology System""",
+                "options": ["Western","Chinese"],
+            },
+        },
 
 
         },
