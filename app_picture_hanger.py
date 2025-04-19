@@ -1,4 +1,4 @@
-PUBLISHED = False
+ΩPUBLISHED = False
 APP_URL = "https://voting-decision-tree.streamlit.app"
 
 APP_TITLE = "🖼 Hang a Picture"
@@ -62,18 +62,18 @@ PHASES = {
             "picture_height": {
                 "type": "number_input",
                 "step": 1,
-                "label": "What's the height of your picture, including the frame? (You can just type a whole number in {measurement_units})",
+                "label": "What's the height of your picture, including the frame? (You can just type a whole number in the units you chose)",
             },
             "drop_to_hardware": {
                 "type": "number_input",
                 "step": 1,
-                "label": "How far below the top of the picture is the hanger on the back, in {measurement_units}?",
+                "label": "How far below the top of the picture is the hanger on the back, in the units you chose (inches or cm)?",
                 "help": "Measure down from the top to the place where the nail will go, whether a hook or a wire held taut, in the units you chose (inches or cm).",
             },
             "available_wall_width": {
                 "type": "number_input",
                 "step": 1,
-                "label": "How much horizontal wall space is available, in {measurement_units}?",
+                "label": "How much horizontal wall space is available, in the units you chose (inches or cm)?",
                 "help": "Include the total span in the units you chose (inches or cm), eg between adjacent walls, nearby furniture, or pictures to the left and right.",
             },
             "picture_weight": {
