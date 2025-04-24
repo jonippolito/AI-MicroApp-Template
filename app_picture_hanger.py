@@ -34,18 +34,82 @@ Do NOT type the LaTeX-style code for equations; either render formulas as mathem
 """
 
 PHASES = {
-   "dimension_calculations": {
-        "name": "Calculate your nail's position",
+   "width_calculations": {
+        "name": "Calculate your nail's horizontal position",
         "fields": {
             "info": {
                 "type": "markdown",
-                "body": "Use a tape measure to find the following dimensions."
+                "body": "Use a tape measure to find the following horizontal dimensions."
             },
             "measurement_units": {
                 "type": "selectbox",
                 "options": ['inches', 'centimeters'],
                 "label": "Are you measuring dimensions in inches or centimeters?",
                 "help": "Whole numbers without fractions or decimals will suffice",
+            },
+            "available_wall_width": {
+                "type": "number_input",
+                "step": 1,
+                "label": "How much horizontal wall space is available, in the units you chose (inches or cm)?",
+                "help": "Include the total span in the units you chose (inches or cm), eg between adjacent walls, nearby furniture, or pictures to the left and right.",
+            },
+			"number_of_pictures": {
+                "type": "slider",
+                "min_value": 1,
+                "max_value": 3,
+                "value": 1,
+                "label": "How many pictures are you hanging in a row?",
+            },
+			"picture_width_1": {
+                "type": "number_input",
+                "step": 1,
+                "label": "How wide is your (first) picture in the units you chose? (Type a number or use the +/- buttons.)",
+            },
+			"picture_width_2": {
+                "type": "number_input",
+                "step": 1,
+                "label": "How wide is your second picture?",
+                "showIf": {"$or":[{"number_of_pictures": 2},{"number_of_pictures": 3}]}
+            },
+			"picture_width_3": {
+                "type": "number_input",
+                "step": 1,
+                "label": "How wide is your third picture?",
+                "showIf": {"number_of_pictures": 3}
+            },
+        },
+        "user_prompt": [
+            {
+                "condition": {},
+                "prompt": "Please use {measurement_units} in all of your output for this prompt."
+            },
+			{
+                "condition": {"number_of_pictures": 1},
+                "prompt": "Use Python to set [shift_right_1] = {available_wall_width} - {",
+            },
+
+			{
+                "condition": {},
+                "prompt": """Use Python to set [height] = ((.93 * {viewer_height_inches}) + ({picture_height}/2) - {drop_to_hardware})). Set [height] to EXACTLY the result of this calculation, with no further assumptions or calculations. Show me step by step reasoning for the calculation, explaining that the middle of the picture should be at eye level (roughly 93% of the viewer's height), and that means the top of the picture should be half its height above that, but that you have to subtract the drop from the top of the picture to the hanging hardware.
+		
+Use Python to set [distance] = ({available_wall_width}/2). Show this step to me, explaining that the nail should be centered horizontally on the available wall space.
+
+Now tell the user to place the nail at a height of [height] off the floor and a horizontal distance of [distance] in {measurement_units} from the left obstacle. Do not tell them how to do the calculations; just do the calculations yourself and tell the user the results.'\n
+                """,
+            },
+		],
+        "ai_response": True,
+        "allow_skip": False,
+        "show_prompt": True,
+        "allow_revisions": True,
+        #"read_only_prompt": False
+    },
+   "height_calculations": {
+        "name": "Calculate your nail's vertical position",
+        "fields": {
+            "info": {
+                "type": "markdown",
+                "body": "Use a tape measure to find the following vertical dimensions."
             },
             "viewer_height_inches": {
                 "type": "slider",
@@ -73,12 +137,6 @@ PHASES = {
                 "step": 1,
                 "label": "How far below the top of the picture is the hanger on the back, in the units you chose (inches or cm)?",
                 "help": "Measure down from the top to the place where the nail will go, whether a hook or a wire held taut, in the units you chose (inches or cm).",
-            },
-            "available_wall_width": {
-                "type": "number_input",
-                "step": 1,
-                "label": "How much horizontal wall space is available, in the units you chose (inches or cm)?",
-                "help": "Include the total span in the units you chose (inches or cm), eg between adjacent walls, nearby furniture, or pictures to the left and right.",
             },
             "picture_weight": {
                 "type": "selectbox",
