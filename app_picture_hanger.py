@@ -50,7 +50,7 @@ PHASES = {
             "available_wall_width": {
                 "type": "number_input",
                 "step": 1,
-                "label": "How much horizontal wall space is available, in the units you chose (inches or cm)?",
+                "label": "What's the available horizontal wall space? Type the number in inches or cm or use the +/- buttons.",
                 "help": "Include the total span in the units you chose (inches or cm), eg between adjacent walls, nearby furniture, or pictures to the left and right.",
             },
 			"number_of_pictures": {
@@ -63,7 +63,8 @@ PHASES = {
 			"picture_width_1": {
                 "type": "number_input",
                 "step": 1,
-                "label": "How wide is your (first) picture in the units you chose? (Type a number or use the +/- buttons.)",
+                "label": "How wide is your (first) picture in the units you chose (inches or cm)?",
+                "showIf": {"$or":[{"number_of_pictures": 2},{"number_of_pictures": 3}]}
             },
 			"picture_width_2": {
                 "type": "number_input",
@@ -85,7 +86,7 @@ PHASES = {
             },
 			{
                 "condition": {"number_of_pictures": 1},
-                "prompt": """Use Python to set [left_offset_1] = (1/2) * {available_wall_width} + ({picture_width_1}/2). Show this step, explaining that the nail should be centered horizontally on the available wall space.
+                "prompt": """Use Python to set [left_offset_1] = (1/2) * ( {available_wall_width} - ({picture_width_1}) ) + ({picture_width_1}/2). Show this step, explaining that the nail should be centered horizontally on the available wall space.
 				
 Now tell the user to place the nail at a horizontal distance of [left_offset_1] in {measurement_units} from the left edge of the available wall space. 
 	
@@ -201,8 +202,40 @@ Now tell the user to place the nail at a height of [height] off the floor. Do no
                 "condition": {"wall_type": "reinforced"},
                 "prompt": "- Explain that you can hang any reasonably sized picture by hammering one or more nails into the plywood behind the wallboard.\n",
             },
+        ],
+        "ai_response": True,
+        "allow_skip": False,
+        "show_prompt": True,
+        "allow_revisions": True,
+        #"read_only_prompt": False
+    }
+   "diagram_generation": {
+        "name": "Generate a diagram (optional)",
+        "fields": {
+            "info": {
+                "type": "markdown",
+                "body": """This option generates a prompt you can paste into a chatbot to draw a diagram of the picture installation. (AI is still bad at drawing accurate blueprints, but you can give it a shot.)
+
+⚠️ Generating an image directly in a chatbot is easier but less accurate. Generating an image from code takes an extra step but is more accurate."""
+            },
+			"diagram_type": {
+                "type": "radio",
+                "options": ['Generate an image in a chatbot', 'Generate an image from code'],
+                "label": "How do you want to draw your diagram?",
+            },
+			"picture_number": {
+                "type": "radio",
+                "options": ['First picture', 'Second picture', 'Third picture'],
+                "label": "If you have more than one picture, which do you want a diagram for?",
+            }
+		}
+        "user_prompt": [
             {
-                "condition": {},
+                "condition": {"diagram_type": "Generate an image in a chatbot"},
+                "prompt": "- After typing out the preceding information, think of a prompt that can be entered in ChatGPT to generate a diagram illustrating the measurements supplied by the user, with labeled arrows to indicate the appropriate dimensions. This schematic image should include a small nail icon or graphic positioned [height] {dimension_units} off the floor and a distance of [distance] {measurement_units} from the nearest left obstacle. The latter dimension is the distance from the nail to the nearest left obstacle; it is not the distance between the edge of the picture and the nail location. Your prompt should also draw a dashed rectangle corresponding to the picture frame, showing that the picture has a height of {picture_height} and another labeled arrow showing the picture has a hardware drop of {drop_to_hardware}. The lower end of the hardware drop should line up horizontally with the position of the nail. Your prompt should ask ChatGPT to draw this in the style of an architectural blueprint with white lines and text on a blue background. Your prompt should clarify that the diagram should be as easy to follow as possible, with no extraneous text or imagery. Finally, type a message to the user suggesting entering this prompt into ChatGPT.com with GPT‑4o selected to generate an explanatory diagram, with a caveat that accurate image generation is still a challenge for AI models.\n",
+            },
+           {
+                "condition": {"diagram_type": "Generate an image from code"},
                 "prompt": "- After typing out the preceding information, think of a prompt that can be entered in ChatGPT to generate a diagram illustrating the measurements supplied by the user, with labeled arrows to indicate the appropriate dimensions. This schematic image should include a small nail icon or graphic positioned [height] {dimension_units} off the floor and a distance of [distance] {measurement_units} from the nearest left obstacle. The latter dimension is the distance from the nail to the nearest left obstacle; it is not the distance between the edge of the picture and the nail location. Your prompt should also draw a dashed rectangle corresponding to the picture frame, showing that the picture has a height of {picture_height} and another labeled arrow showing the picture has a hardware drop of {drop_to_hardware}. The lower end of the hardware drop should line up horizontally with the position of the nail. Your prompt should ask ChatGPT to draw this in the style of an architectural blueprint with white lines and text on a blue background. Your prompt should clarify that the diagram should be as easy to follow as possible, with no extraneous text or imagery. Finally, type a message to the user suggesting entering this prompt into ChatGPT.com with GPT‑4o selected to generate an explanatory diagram, with a caveat that accurate image generation is still a challenge for AI models.\n",
             },
         ],
