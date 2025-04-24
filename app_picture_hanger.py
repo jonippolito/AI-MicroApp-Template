@@ -228,7 +228,7 @@ Now tell the user to place the nail at a height of [height] off the floor. Do no
                 "options": ['First picture', 'Second picture', 'Third picture'],
                 "label": "If you have more than one picture, which do you want a diagram for?",
             }
-		}
+		},
         "user_prompt": [
             {
                 "condition": {"diagram_type": "Generate an image in a chatbot"},
