@@ -208,7 +208,7 @@ Now tell the user to place the nail at a height of [height] off the floor. Do no
         "show_prompt": True,
         "allow_revisions": True,
         #"read_only_prompt": False
-    }
+    },
    "diagram_generation": {
         "name": "Generate a diagram (optional)",
         "fields": {
