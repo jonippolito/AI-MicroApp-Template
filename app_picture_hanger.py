@@ -64,7 +64,6 @@ PHASES = {
                 "type": "number_input",
                 "step": 1,
                 "label": "How wide is your (first) picture in the units you chose (inches or cm)?",
-                "showIf": {"$or":[{"number_of_pictures": 2},{"number_of_pictures": 3}]}
             },
 			"picture_width_2": {
                 "type": "number_input",
