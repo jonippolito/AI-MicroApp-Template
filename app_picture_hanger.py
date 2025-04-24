@@ -180,9 +180,9 @@ In all cases, do not tell the user how to do the calculations; just do the calcu
             },
 			{
                 "condition": {},
-                "prompt": """Use Python to set [height] = ((.93 * {viewer_height_inches}) + ({picture_height}/2) - {drop_to_hardware})). Set [height] to EXACTLY the result of this calculation, with no further assumptions or calculations. Show step by step reasoning for the calculation, explaining that the middle of the picture should be at eye level (roughly 93% of the viewer's height), and that means the top of the picture should be half its height above that, but that you have to subtract the drop from the top of the picture to the hanging hardware.
+                "prompt": """Use Python to set [nail_height] = ((.93 * {viewer_height_inches}) + ({picture_height}/2) - {drop_to_hardware})). Set [nail_height] to EXACTLY the result of this calculation, with no further assumptions or calculations. Show step by step reasoning for the calculation, explaining that the middle of the picture should be at eye level (roughly 93% of the viewer's height), and that means the top of the picture should be half its height above that, but that you have to subtract the drop from the top of the picture to the hanging hardware.
 
-Now tell the user to place the nail at a height of [height] off the floor. Do not tell them how to do the calculations; just do the calculations yourself and tell the user the results.'\n
+Now tell the user to place the nail at a height of [nail_height] off the floor. Do not tell them how to do the calculations; just do the calculations yourself and tell the user the results.'\n
                 """,
             },
             {
@@ -231,13 +231,15 @@ Now tell the user to place the nail at a height of [height] off the floor. Do no
         "user_prompt": [
             {
                 "condition": {"diagram_type": "Generate an image in a chatbot"},
-                "prompt": "- After typing out the preceding information, think of a prompt that can be entered in ChatGPT to generate a diagram illustrating the measurements supplied by the user, with labeled arrows to indicate the appropriate dimensions. This schematic image should include a small nail icon or graphic positioned [height] {dimension_units} off the floor and a distance of [distance] {measurement_units} from the nearest left obstacle. The latter dimension is the distance from the nail to the nearest left obstacle; it is not the distance between the edge of the picture and the nail location. Your prompt should also draw a dashed rectangle corresponding to the picture frame, showing that the picture has a height of {picture_height} and another labeled arrow showing the picture has a hardware drop of {drop_to_hardware}. The lower end of the hardware drop should line up horizontally with the position of the nail. Your prompt should ask ChatGPT to draw this in the style of an architectural blueprint with white lines and text on a blue background. Your prompt should clarify that the diagram should be as easy to follow as possible, with no extraneous text or imagery. Finally, type a message to the user suggesting entering this prompt into ChatGPT.com with GPT‑4o selected to generate an explanatory diagram, with a caveat that accurate image generation is still a challenge for AI models.\n",
+                "prompt": "- After typing out the preceding information, think of a prompt that can be entered in ChatGPT to generate a diagram illustrating the measurements supplied by the user, with labeled arrows to indicate the appropriate dimensions. This schematic image should include a small nail icon or graphic positioned [nail_height] {dimension_units} off the floor and a distance of [distance] {measurement_units} from the nearest left obstacle. The latter dimension is the distance from the nail to the nearest left obstacle; it is not the distance between the edge of the picture and the nail location. Your prompt should also draw a dashed rectangle corresponding to the picture frame, showing that the picture has a height of {picture_height} and another labeled arrow showing the picture has a hardware drop of {drop_to_hardware}. The lower end of the hardware drop should line up horizontally with the position of the nail. Your prompt should ask ChatGPT to draw this in the style of an architectural blueprint with white lines and text on a blue background. Your prompt should clarify that the diagram should be as easy to follow as possible, with no extraneous text or imagery. Finally, type a message to the user suggesting entering this prompt into ChatGPT.com with GPT‑4o selected to generate an explanatory diagram, with a caveat that accurate image generation is still a challenge for AI models.\n",
             },
            {
                 "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "First picture"}]},
-                "prompt": """Acting as an expert in visual programming, write some JavaScript using the P5js framework to draw a schematic diagram for hanging a picture on a wall.
+                "prompt": """Acting as an expert in visual programming, write some JavaScript using the P5js framework to draw a schematic diagram for hanging a picture on the wall of a house.
 
-To represent the position of the nail, place a small red letter "X" with a labeled vertical arrow indicating the nail is [height] {measurement_units} off the floor and a labeled horizontal arrow indicating the nail is [left_offset_1] {measurement_units} away from the left edge of the canvas. 
+The numbers I will give you below are relative, not pixel values to use in P5js commands. When choosing parameters for commands like rect() and line(), choose numbers that are proportional to your sketch dimensions. For example, if you call `createCanvas(800, 600)`, then imagine that 600 pixels is the height of a typical wall. This would lead to the conclusion that a 600 pixels is 96 inches, which means that you can multiply each measurement conveyed in the numbers below by 600/96 = 6.25 to get the proportions right in your P5js sketch.
+
+To represent the position of the nail, place a small red letter "X" with a labeled vertical arrow indicating the nail is [nail_height] {measurement_units} off the floor and a labeled horizontal arrow indicating the nail is [left_offset_1] {measurement_units} away from the left edge of the canvas. 
 
 Then draw a dashed, transparent rectangle with `noFill()` centered on the "X" horizontally but with the top value {drop_to_hardware} {measurement_units} above the "X", indicating this vertical displacement with another labeled arrow. You don't need to label the width and height of the rectangle, but it is roughly {picture_width_1} {measurement_units} on a side and should be drawn in proportion to the other measurements.
 
@@ -251,7 +253,7 @@ Finish with instructions to paste the code into the P5js web editor (https://edi
                 "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "Second picture"}]},
                 "prompt": """Acting as an expert in visual programming, write some JavaScript using the P5js framework to draw a schematic diagram for hanging a picture on a wall.
 
-To represent the position of the nail, place a small red letter "X" with a labeled vertical arrow indicating the nail is [height] {measurement_units} off the floor and a labeled horizontal arrow indicating the nail is [left_offset_2] {measurement_units} away from the left edge of the canvas. 
+To represent the position of the nail, place a small red letter "X" with a labeled vertical arrow indicating the nail is [nail_height] {measurement_units} off the floor and a labeled horizontal arrow indicating the nail is [left_offset_2] {measurement_units} away from the left edge of the canvas. 
 
 Then draw a dashed, transparent rectangle with `noFill()` centered on the "X" horizontally but with the top value {drop_to_hardware} {measurement_units} above the "X", indicating this vertical displacement with another labeled arrow. You don't need to label the width and height of the rectangle, but it is roughly {picture_width_2} {measurement_units} on a side and should be drawn in proportion to the other measurements.
 
@@ -265,7 +267,7 @@ Finish with instructions to paste the code into the P5js web editor (https://edi
                 "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "Third picture"}]},
                 "prompt": """Acting as an expert in visual programming, write some JavaScript using the P5js framework to draw a schematic diagram for hanging a picture on a wall.
 
-To represent the position of the nail, place a small red letter "X" with a labeled vertical arrow indicating the nail is [height] {measurement_units} off the floor and a labeled horizontal arrow indicating the nail is [left_offset_3] {measurement_units} away from the left edge of the canvas. 
+To represent the position of the nail, place a small red letter "X" with a labeled vertical arrow indicating the nail is [nail_height] {measurement_units} off the floor and a labeled horizontal arrow indicating the nail is [left_offset_3] {measurement_units} away from the left edge of the canvas. 
 
 Then draw a dashed, transparent rectangle with `noFill()` centered on the "X" horizontally but with the top value {drop_to_hardware} {measurement_units} above the "X", indicating this vertical displacement with another labeled arrow. You don't need to label the width and height of the rectangle, but it is roughly {picture_width_3} {measurement_units} on a side and should be drawn in proportion to the other measurements.
 
