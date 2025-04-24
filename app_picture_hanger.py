@@ -28,7 +28,7 @@ available_wall_width: This is the running length of wall space available to moun
 
 When asked to perform a calculation, please use Python to perform the calculation and follow the provided instructions EXACTLY.
 
-Before reporting any resulting calculation to me, round any numbers to the closest integer.
+Before reporting any resulting calculation, round any numbers to the closest integer.
 
 Do NOT type the LaTeX-style code for equations; either render formulas as mathematical symbols or omit santax like "\frac" or "\times" or "\text" altogether.
 """
@@ -85,16 +85,48 @@ PHASES = {
             },
 			{
                 "condition": {"number_of_pictures": 1},
-                "prompt": "Use Python to set [shift_right_1] = {available_wall_width} - {",
+                "prompt": """Use Python to set [left_offset_1] = (1/2) * {available_wall_width} + ({picture_width_1}/2). Show this step, explaining that the nail should be centered horizontally on the available wall space.
+				
+Now tell the user to place the nail at a horizontal distance of [left_offset_1] in {measurement_units} from the left edge of the available wall space. 
+	
+Do not tell the user how to do the calculations; just do the calculations yourself and tell the user the results.'\n""",
+            },
+			{
+                "condition": {"number_of_pictures": 2},
+            	"prompt": """Use Python to set [left_offset_1] = (1/3) * ( {available_wall_width} - ({picture_width_1} + {picture_width_2}) ) + ({picture_width_1}/2).
+				
+Now tell the user to place the first nail at a horizontal distance of [left_offset_1] in {measurement_units} from the left edge of the available wall space.
+
+Then use Python to set [left_offset_2] = (2/3) * ( {available_wall_width} - ( {picture_width_1} + {picture_width_2} ) + {picture_width_1} + ( {picture_width_2} / 2 ).
+				
+Now tell the user to place the second nail at a horizontal distance of [left_offset_2] in {measurement_units} from the left edge of the available wall space.
+	
+In all cases, do not tell the user how to do the calculations; just do the calculations yourself and tell the user the results.'\n""",
+            },
+			{
+                "condition": {"number_of_pictures": 3},
+            	"prompt": """Use Python to set [left_offset_1] = (1/4) * ( {available_wall_width} - ({picture_width_1} + {picture_width_2} + {picture_width_3) ) + ({picture_width_1}/2).
+				
+Now tell the user to place the first nail at a horizontal distance of [left_offset_1] in {measurement_units} from the left edge of the available wall space.
+
+Then use Python to set [left_offset_2] = (2/4) * ( {available_wall_width} - ( {picture_width_1} + {picture_width_2} + {picture_width_3}) + {picture_width_1} + ( {picture_width_2} / 2 ).
+				
+Now tell the user to place the second nail at a horizontal distance of [left_offset_2] in {measurement_units} from the left edge of the available wall space.
+
+Then use Python to set [left_offset_3] = (3/4) * ( {available_wall_width} - ( {picture_width_1} + {picture_width_2} + {picture_width_3}) + {picture_width_1} + {picture_2_width} + ( {picture_width_3} / 2 ).
+				
+Now tell the user to place the third nail at a horizontal distance of [left_offset_3] in {measurement_units} from the left edge of the available wall space.
+	
+In all cases, do not tell the user how to do the calculations; just do the calculations yourself and tell the user the results.'\n""",
             },
 
 			{
                 "condition": {},
-                "prompt": """Use Python to set [height] = ((.93 * {viewer_height_inches}) + ({picture_height}/2) - {drop_to_hardware})). Set [height] to EXACTLY the result of this calculation, with no further assumptions or calculations. Show me step by step reasoning for the calculation, explaining that the middle of the picture should be at eye level (roughly 93% of the viewer's height), and that means the top of the picture should be half its height above that, but that you have to subtract the drop from the top of the picture to the hanging hardware.
+                "prompt": """Use Python to set [height] = ((.93 * {viewer_height_inches}) + ({picture_height}/2) - {drop_to_hardware})). Set [height] to EXACTLY the result of this calculation, with no further assumptions or calculations. Show step by step reasoning for the calculation, explaining that the middle of the picture should be at eye level (roughly 93% of the viewer's height), and that means the top of the picture should be half its height above that, but that you have to subtract the drop from the top of the picture to the hanging hardware.
 		
-Use Python to set [distance] = ({available_wall_width}/2). Show this step to me, explaining that the nail should be centered horizontally on the available wall space.
+Use Python to set [distance] = ({available_wall_width}/2). Show this step, explaining that the nail should be centered horizontally on the available wall space.
 
-Now tell the user to place the nail at a height of [height] off the floor and a horizontal distance of [distance] in {measurement_units} from the left obstacle. Do not tell them how to do the calculations; just do the calculations yourself and tell the user the results.'\n
+
                 """,
             },
 		],
@@ -158,11 +190,9 @@ Now tell the user to place the nail at a height of [height] off the floor and a 
             },
 			{
                 "condition": {},
-                "prompt": """Use Python to set [height] = ((.93 * {viewer_height_inches}) + ({picture_height}/2) - {drop_to_hardware})). Set [height] to EXACTLY the result of this calculation, with no further assumptions or calculations. Show me step by step reasoning for the calculation, explaining that the middle of the picture should be at eye level (roughly 93% of the viewer's height), and that means the top of the picture should be half its height above that, but that you have to subtract the drop from the top of the picture to the hanging hardware.
-		
-Use Python to set [distance] = ({available_wall_width}/2). Show this step to me, explaining that the nail should be centered horizontally on the available wall space.
+                "prompt": """Use Python to set [height] = ((.93 * {viewer_height_inches}) + ({picture_height}/2) - {drop_to_hardware})). Set [height] to EXACTLY the result of this calculation, with no further assumptions or calculations. Show step by step reasoning for the calculation, explaining that the middle of the picture should be at eye level (roughly 93% of the viewer's height), and that means the top of the picture should be half its height above that, but that you have to subtract the drop from the top of the picture to the hanging hardware.
 
-Now tell the user to place the nail at a height of [height] off the floor and a horizontal distance of [distance] in {measurement_units} from the left obstacle. Do not tell them how to do the calculations; just do the calculations yourself and tell the user the results.'\n
+Now tell the user to place the nail at a height of [height] off the floor. Do not tell them how to do the calculations; just do the calculations yourself and tell the user the results.'\n
                 """,
             },
             {
