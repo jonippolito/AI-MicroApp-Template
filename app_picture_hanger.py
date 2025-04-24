@@ -240,7 +240,7 @@ Now tell the user to place the nail at a height of [height] off the floor. Do no
 
 To represent the position of the nail, place a small red letter "X" with a labeled vertical arrow indicating the nail is [height] {measurement_units} off the floor and a labeled horizontal arrow indicating the nail is [left_offset_1] {measurement_units} away from the left edge of the canvas. 
 
-Then draw a dashed, transparent rectangle with `noFill()` centered on the "X" horizontally but with the top value {drop_to_hardware} {measurement_units} above the "X", indicating this vertical displacement with another labeled arrow. You don't need to label the width and height of the rectangle, but it is roughly {picture_height_1} {measurement_units} on a side and should be drawn in proportion to the other measurements.
+Then draw a dashed, transparent rectangle with `noFill()` centered on the "X" horizontally but with the top value {drop_to_hardware} {measurement_units} above the "X", indicating this vertical displacement with another labeled arrow. You don't need to label the width and height of the rectangle, but it is roughly {picture_width_1} {measurement_units} on a side and should be drawn in proportion to the other measurements.
 
 Add a title for the diagram called "Nail position relative to floor and wall, with drop from top of picture shown for reference".
 
@@ -254,7 +254,7 @@ Finish with instructions to paste the code into the P5js web editor (https://edi
 
 To represent the position of the nail, place a small red letter "X" with a labeled vertical arrow indicating the nail is [height] {measurement_units} off the floor and a labeled horizontal arrow indicating the nail is [left_offset_2] {measurement_units} away from the left edge of the canvas. 
 
-Then draw a dashed, transparent rectangle with `noFill()` centered on the "X" horizontally but with the top value {drop_to_hardware} {measurement_units} above the "X", indicating this vertical displacement with another labeled arrow. You don't need to label the width and height of the rectangle, but they are {picture_width_2} and {picture_height_2} {measurement_units} respectively and should be drawn in proportion to the other measurements.
+Then draw a dashed, transparent rectangle with `noFill()` centered on the "X" horizontally but with the top value {drop_to_hardware} {measurement_units} above the "X", indicating this vertical displacement with another labeled arrow. You don't need to label the width and height of the rectangle, but it is roughly {picture_width_2} {measurement_units} on a side and should be drawn in proportion to the other measurements.
 
 Add a title for the diagram called "Nail position relative to floor and wall, with drop from top of picture shown for reference".
 
@@ -268,7 +268,7 @@ Finish with instructions to paste the code into the P5js web editor (https://edi
 
 To represent the position of the nail, place a small red letter "X" with a labeled vertical arrow indicating the nail is [height] {measurement_units} off the floor and a labeled horizontal arrow indicating the nail is [left_offset_3] {measurement_units} away from the left edge of the canvas. 
 
-Then draw a dashed, transparent rectangle with `noFill()` centered on the "X" horizontally but with the top value {drop_to_hardware} {measurement_units} above the "X", indicating this vertical displacement with another labeled arrow. You don't need to label the width and height of the rectangle, but they are {picture_width_3} and {picture_height_3} {measurement_units} respectively and should be drawn in proportion to the other measurements.
+Then draw a dashed, transparent rectangle with `noFill()` centered on the "X" horizontally but with the top value {drop_to_hardware} {measurement_units} above the "X", indicating this vertical displacement with another labeled arrow. You don't need to label the width and height of the rectangle, but it is roughly {picture_width_3} {measurement_units} on a side and should be drawn in proportion to the other measurements.
 
 Add a title for the diagram called "Nail position relative to floor and wall, with drop from top of picture shown for reference".
 
