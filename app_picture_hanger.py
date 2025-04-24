@@ -119,16 +119,6 @@ Now tell the user to place the third nail at a horizontal distance of [left_offs
 	
 In all cases, do not tell the user how to do the calculations; just do the calculations yourself and tell the user the results.'\n""",
             },
-
-			{
-                "condition": {},
-                "prompt": """Use Python to set [height] = ((.93 * {viewer_height_inches}) + ({picture_height}/2) - {drop_to_hardware})). Set [height] to EXACTLY the result of this calculation, with no further assumptions or calculations. Show step by step reasoning for the calculation, explaining that the middle of the picture should be at eye level (roughly 93% of the viewer's height), and that means the top of the picture should be half its height above that, but that you have to subtract the drop from the top of the picture to the hanging hardware.
-		
-Use Python to set [distance] = ({available_wall_width}/2). Show this step, explaining that the nail should be centered horizontally on the available wall space.
-
-
-                """,
-            },
 		],
         "ai_response": True,
         "allow_skip": False,
