@@ -249,7 +249,7 @@ The diagram should be styled like an architectural blueprint, with white lines a
 Finish with instructions to paste the code into the P5js web editor (https://editor.p5js.org) and click Play.""",
             },
           {
-                "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "Second picture}]},
+                "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "Second picture"}]},
                 "prompt": """Acting as an expert in visual programming, write some JavaScript using the P5js framework to draw a schematic diagram for hanging a picture on a wall.
 
 To represent the position of the nail, place a small red letter "X" with a labeled vertical arrow indicating the nail is [height] {measurement_units} off the floor and a labeled horizontal arrow indicating the nail is [left_offset_2] {measurement_units} away from the left edge of the canvas. 
