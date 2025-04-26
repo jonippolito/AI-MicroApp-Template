@@ -1,5 +1,5 @@
 PUBLISHED = False
-APP_URL = "https://voting-decision-tree.streamlit.app"
+APP_URL = "https://picture-hanger.streamlit.app"
 
 APP_TITLE = "🖼 Hang a Picture"
 APP_INTRO = """🔨 This app helps you hang a painting, framed photo, or other flat artwork on the wall of a home or gallery"""
