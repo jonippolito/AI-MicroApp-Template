@@ -1,4 +1,4 @@
-ΩPUBLISHED = False
+PUBLISHED = False
 APP_URL = "https://voting-decision-tree.streamlit.app"
 
 APP_TITLE = "🖼 Hang a Picture"
