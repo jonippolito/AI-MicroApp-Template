@@ -63,17 +63,20 @@ PHASES = {
 			"picture_width_1": {
                 "type": "number_input",
                 "step": 1,
+                "value": 30,
                 "label": "How wide is your (first) picture in the units you chose (inches or cm)?",
             },
 			"picture_width_2": {
                 "type": "number_input",
                 "step": 1,
+                "value": 30,
                 "label": "How wide is your second picture?",
                 "showIf": {"$or":[{"number_of_pictures": 2},{"number_of_pictures": 3}]}
             },
 			"picture_width_3": {
                 "type": "number_input",
                 "step": 1,
+                "value": 30,
                 "label": "How wide is your third picture?",
                 "showIf": {"number_of_pictures": 3}
             },
@@ -152,11 +155,13 @@ In all cases, do not tell the user how to do the calculations; just do the calcu
             "picture_height": {
                 "type": "number_input",
                 "step": 1,
-                "label": "What's the height of your picture, including the frame? (You can just type a whole number in the units you chose)",
+                "value": 20,
+                "label": "How tall is your picture, including the frame? (You can just type a whole number in the units you chose)",
             },
             "drop_to_hardware": {
                 "type": "number_input",
                 "step": 1,
+                "value": 4,
                 "label": "How far below the top of the picture is the hanger on the back, in the units you chose (inches or cm)?",
                 "help": "Measure down from the top to the place where the nail will go, whether a hook or a wire held taut, in the units you chose (inches or cm).",
             },
@@ -252,7 +257,9 @@ Remembering that the measurement units for this example are {measurement_units},
 Now use Python to make some additional calculations that will help draw the shapes:
 
 - Set [nail_top_px] = 600 - [nail_height_px].
-- Set [picture_top_px] = [nail_top_px] + [drop_to_hardware_px].
+- Set [picture_top_px] = [nail_top_px] - [drop_to_hardware_px].
+
+Add a title for the diagram at the very top called "Nail position from floor and left edge". Add a small text at the bottom explaining that the picture will rise {drop_to_hardware} {measurement_units} above the nail.
 
 To represent the position of the nail, place text consisting of a small letter "X" at a left position of [left_offset_1_px] pixels
 and a top of [nail_top_px] pixels.
@@ -261,11 +268,7 @@ Draw a vertical arrow starting at [left_offset_1_px], [nail_top_px] and extendin
 
 To represent the picture, draw a dashed rectangle whose top is [picture_top_px] pixels from the top of the canvas and is centered [left_offset_1_px] pixels from the left edge of the canvas. The rectangle should have a width of [picture_width_px] pixels and a height of [picture_height_px]. The rectangle should have no fill and but a black stroke to be visible.
 
-Add a title for the diagram at the very top called "Nail position from floor and left edge".
-
-Add a small text at the bottom explaining that the picture will rise {drop_to_hardware} {measurement_units} above the nail.
-
-Finish with instructions to paste the code into the P5js web editor (https://editor.p5js.org) and click Play.""",
+After generating this code and sharing it with the user, add instructions to paste the code into the P5js web editor at https://editor.p5js.org and click Play.""",
             },
             {
                 "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "Second picture"}]},
