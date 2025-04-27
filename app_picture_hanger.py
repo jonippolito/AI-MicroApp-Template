@@ -259,11 +259,11 @@ and a top of [nail_top_px] pixels.
 
 Draw a vertical arrow starting at [left_offset_1_px], [nail_top_px] and extending down to [left_offset_1_px], 600 with a text label indicating the nail is [nail_height] {measurement_units} off the floor. Also draw a horizontal arrow from the left edge of the canvas to the "X", with a text label indicating the nail is [left_offset_1] {measurement_units} from the left wall.
 
-Draw another arrow starting from the "X" and rising vertically [drop_to_hardware_px] pixels toward the top of the canvas. Add a text label indicating a length of {drop_to_hardware} {measurement_units}.
+To represent the picture, draw a dashed rectangle whose top is [picture_top_px] pixels from the top of the canvas and is centered [left_offset_1_px] pixels from the left edge of the canvas. The rectangle should have a width of [picture_width_px] pixels and a height of [picture_height_px]. The rectangle should have no fill and but a black stroke to be visible.
 
-To represent the picture, draw a dashed rectangle whose top lines up with the top of this last arrow and is centered [left_offset_1_px] pixels from the left edge of the canvas. The rectangle should have a width of [picture_width_px] pixels and a height of [picture_height_px]. The rectangle should have no fill and but a black stroke to be visible.
+Add a title for the diagram at the very top called "Nail position from floor and left edge".
 
-Add a title for the diagram called "Nail position from floor and left edge".
+Add a small text at the bottom explaining that the picture will rise {drop_to_hardware} {measurement_units} above the nail.
 
 Finish with instructions to paste the code into the P5js web editor (https://editor.p5js.org) and click Play.""",
             },
