@@ -248,11 +248,11 @@ Start by converting the values we've calculated so far into pixels so we can pos
 
 Remembering that the measurement units for this example are {measurement_units}, use Python to set these pixel equivalents:
 
-- Set [nail_height_px] to the pixel equivalent of [nail_height].
-- Set [left_offset_1_px] to the pixel equivalent of [left_offset_1_px].
-- Set [picture_width_px] to the pixel equivalent of {picture_width}.
-- Set [picture_height_px] to the pixel equivalent of {picture_height}.
-- Set [drop_to_hardware_px] to the pixel equivalent of {drop_to_hardware}.
+- Set [nail_height_px] to the pixel equivalent of [nail_height], rounded to the closest integer.
+- Set [left_offset_1_px] to the pixel equivalent of [left_offset_1_px], rounded to the closest integer.
+- Set [picture_width_px] to the pixel equivalent of {picture_width}, rounded to the closest integer.
+- Set [picture_height_px] to the pixel equivalent of {picture_height}, rounded to the closest integer.
+- Set [drop_to_hardware_px] to the pixel equivalent of {drop_to_hardware}, rounded to the closest integer.
 
 Now use Python to make some additional calculations that will help draw the shapes:
 
@@ -266,7 +266,7 @@ and a top of [nail_top_px] pixels.
 
 Draw a vertical arrow starting at [left_offset_1_px], [nail_top_px] and extending down to [left_offset_1_px], 600 with a text label indicating the nail is [nail_height] {measurement_units} off the floor. Also draw a horizontal arrow from the left edge of the canvas to the "X", with a text label indicating the nail is [left_offset_1] {measurement_units} from the left wall.
 
-To represent the picture, draw a dashed rectangle whose top is [picture_top_px] pixels from the top of the canvas and is centered [left_offset_1_px] pixels from the left edge of the canvas. The rectangle should have a width of [picture_width_px] pixels and a height of [picture_height_px]. The rectangle should have no fill and but a black stroke to be visible.
+To represent the picture, draw a dashed rectangle whose top is [picture_top_px] pixels from the top of the canvas and is centered [left_offset_1_px] pixels from the left edge of the canvas. The rectangle should have a width of [picture_width_px] pixels and a height of [picture_height_px]. The rectangle should have no fill, with only the black stroke visible.
 
 After generating this code and sharing it with the user, add instructions to paste the code into the P5js web editor at https://editor.p5js.org and click Play.""",
             },
