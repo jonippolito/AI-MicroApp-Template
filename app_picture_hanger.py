@@ -50,6 +50,7 @@ PHASES = {
             "available_wall_width": {
                 "type": "number_input",
                 "step": 1,
+                "value": 100,
                 "label": "What's the available horizontal wall space? Type the number in inches or cm or use the +/- buttons.",
                 "help": "Include the total span in the units you chose (inches or cm), eg between adjacent walls, nearby furniture, or pictures to the left and right.",
             },
@@ -259,12 +260,14 @@ Now use Python to make some additional calculations that will help draw the shap
 - Set [nail_top_px] = 600 - [nail_height_px].
 - Set [picture_top_px] = [nail_top_px] - [drop_to_hardware_px].
 
-Add a title for the diagram at the very top called "Nail position from floor and left edge". Add a small text at the bottom explaining that the picture will rise {drop_to_hardware} {measurement_units} above the nail.
+Add a title for the diagram at the very top called "Nail position from floor and left edge". In the lower right corner of the sketch, add a text at the bottom explaining that the picture will rise {drop_to_hardware} {measurement_units} above the nail. For example, you might accomplish this with a command like `text('...', 600, 500, 200, 100)`, 
 
-To represent the position of the nail, place text consisting of a small letter "X" at a left position of [left_offset_1_px] pixels
-and a top of [nail_top_px] pixels.
+To represent the position of the nail, place red text consisting of a small letter "X" at a left position of [left_offset_1_px] pixels
+and a top of [nail_top_px] pixels. This will be your only use of a color other than black for text and shapes.
 
-Draw a vertical arrow starting at [left_offset_1_px], [nail_top_px] and extending down to [left_offset_1_px], 600 with a text label indicating the nail is [nail_height] {measurement_units} off the floor. Also draw a horizontal arrow from the left edge of the canvas to the "X", with a text label indicating the nail is [left_offset_1] {measurement_units} from the left wall.
+Draw a vertical arrow starting at [left_offset_1_px], [nail_top_px] and extending down to [left_offset_1_px], 600. 20 pixels to the right of this line, add a text label indicating the nail is [nail_height] {measurement_units} off the floor. This label should be wrapped in a text() box approximately 200 pixels on a side.
+
+Also draw a horizontal arrow from the left edge of the canvas to the "X", with a text label indicating the nail is [left_offset_1] {measurement_units} from the left wall. This label should also be wrapped in a text() box approximately 200 pixels on a side. Be sure to position the text() far enough to the left so that it doesn't overlap this vertical line.
 
 To represent the picture, draw a dashed rectangle whose top is [picture_top_px] pixels from the top of the canvas and is centered [left_offset_1_px] pixels from the left edge of the canvas. The rectangle should have a width of [picture_width_px] pixels and a height of [picture_height_px]. The rectangle should have no fill, with only the black stroke visible.
 
