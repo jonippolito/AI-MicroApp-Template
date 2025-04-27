@@ -237,7 +237,7 @@ Now tell the user to place the nail at a height of [nail_height] off the floor. 
                 "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "First picture"}]},
                 "prompt": """Acting as an expert in visual programming, write some JavaScript using the P5js framework to draw a schematic diagram for hanging a picture on the wall of a house.
 
-The diagram should be styled like an architectural blueprint, with black lines and text on a white background except where indicated otherwise. The diagram should be easy to follow with no extraneous text or imagery. Assume your code will be pasted into the online P5js editor and run as the sketch in the user's browser, so do not include any HTML or CSS, just the contents of the script tag.
+The diagram should be styled like an architectural blueprint, with black lines and black text on a white background except where indicated otherwise. Do not use any other color besides black for shapes or text. The diagram should be easy to follow with no extraneous text or imagery. Assume your code will be pasted into the online P5js editor and run as the sketch in the user's browser, so do not include any HTML or CSS, just the contents of the script tag.
 
 Start by converting the values we've calculated so far into pixels so we can position some text and shapes in our sketch to indicate the placement of a nail for hanging a picture. You will create a canvas that is 800 pixels wide and 600 pixels tall. This means 600 pixels is the height of a typical wall, or roughly 96 inches or 240 cm. This means converting inches to pixels will require multiplying by 600/96 = 6.25; converting cm to pixels will require multiplying by 600/240 = 2.5.
 
@@ -254,16 +254,16 @@ Now use Python to make some additional calculations that will help draw the shap
 - Set [nail_top_px] = 600 - [nail_height_px].
 - Set [picture_top_px] = [nail_top_px] + [drop_to_hardware_px].
 
-To represent the position of the nail, place text consisting of a small red letter "X" at a left position of [left_offset_1_px] pixels
+To represent the position of the nail, place text consisting of a small letter "X" at a left position of [left_offset_1_px] pixels
 and a top of [nail_top_px] pixels.
 
-Draw a vertical arrow from the bottom of the canvas to the "X", with a text label indicating the nail is [nail_height] {measurement_units} off the floor. Also draw a horizontal arrow from the left edge of the canvas to the "X", with a text label indicating the nail is [left_offset_1] {measurement_units} from the left wall.
+Draw a vertical arrow starting at [left_offset_1_px], [nail_top_px] and extending down to [left_offset_1_px], 600 with a text label indicating the nail is [nail_height] {measurement_units} off the floor. Also draw a horizontal arrow from the left edge of the canvas to the "X", with a text label indicating the nail is [left_offset_1] {measurement_units} from the left wall.
 
 Draw another arrow starting from the "X" and rising vertically [drop_to_hardware_px] pixels toward the top of the canvas. Add a text label indicating a length of {drop_to_hardware} {measurement_units}.
 
-To represent the picture, draw a dashed rectangle whose top lines up with the top of this last arrow and is centered [left_offset_1_px] pixels from the left edge of the canvas. The rectangle should have a width of [picture_width_px] pixels and a height of [picture_height_px]. The rectangle should have no fill and but a white stroke to be visible.
+To represent the picture, draw a dashed rectangle whose top lines up with the top of this last arrow and is centered [left_offset_1_px] pixels from the left edge of the canvas. The rectangle should have a width of [picture_width_px] pixels and a height of [picture_height_px]. The rectangle should have no fill and but a black stroke to be visible.
 
-Add a title for the diagram called "Nail position showing drop from top of picture".
+Add a title for the diagram called "Nail position from floor and left edge".
 
 Finish with instructions to paste the code into the P5js web editor (https://editor.p5js.org) and click Play.""",
             },
