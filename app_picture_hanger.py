@@ -131,8 +131,13 @@ In all cases, do not tell the user how to do the calculations; just do the calcu
         #"read_only_prompt": False
     },
     "height_calculations": {
-        "name": "Calculate your nail's vertical position",
+        "name": "Calculate the nail's vertical position for one of your pictures",
         "fields": {
+            "picture_choice": {
+                "type": "radio",
+                "options": ['First picture', 'Second picture', 'Third picture'],
+                "label": "Which picture do you want to calculate the nail position for?",
+            },
             "info": {
                 "type": "markdown",
                 "body": "Use a tape measure to find the following vertical dimensions."
@@ -186,7 +191,7 @@ In all cases, do not tell the user how to do the calculations; just do the calcu
             },
 			{
                 "condition": {},
-                "prompt": """Use Python to set [nail_height] = ((.93 * {viewer_height_inches}) + ({picture_height}/2) - {drop_to_hardware})). Set [nail_height] to EXACTLY the result of this calculation, with no further assumptions or calculations. Show step by step reasoning for the calculation, explaining that the middle of the picture should be at eye level (roughly 93% of the viewer's height), and that means the top of the picture should be half its height above that, but that you have to subtract the drop from the top of the picture to the hanging hardware.
+                "prompt": """Use Python to set [nail_height] = ((.93 * {viewer_height_inches}) + ({picture_height}/2) - {drop_to_hardware})), rounded to the nearest integer. Set [nail_height] to this result, with no further assumptions or calculations. Show step by step reasoning for the calculation, explaining that the middle of the picture should be at eye level (roughly 93% of the viewer's height), and that means the top of the picture should be half its height above that, but that you have to subtract the drop from the top of the picture to the hanging hardware.
 
 Now tell the user to place the nail at a height of [nail_height] off the floor. Do not tell them how to do the calculations; just do the calculations yourself and tell the user the results.'\n
                 """,
@@ -219,7 +224,7 @@ Now tell the user to place the nail at a height of [nail_height] off the floor. 
         "fields": {
             "info": {
                 "type": "markdown",
-                "body": """This option generates a prompt you can paste into a chatbot to draw a diagram of the picture installation. (AI is still bad at drawing accurate blueprints, but you can give it a shot.)
+                "body": """This option generates a prompt you can paste into a chatbot to draw a diagram of how to install this picture. (AI is still bad at drawing accurate blueprints, but you can give it a shot.)
 
 ⚠️ Generating an image directly in a chatbot is easier but less accurate. Generating an image from code takes an extra step but is more accurate."""
             },
@@ -228,19 +233,35 @@ Now tell the user to place the nail at a height of [nail_height] off the floor. 
                 "options": ['Generate an image from code', 'Generate an image in a chatbot'],
                 "label": "How do you want to draw your diagram?",
             },
-			"picture_choice": {
-                "type": "radio",
-                "options": ['First picture', 'Second picture', 'Third picture'],
-                "label": "If you have more than one picture, which do you want a diagram for?",
-            }
 		},
         "user_prompt": [
+            # First picture.
+            {
+                "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "First picture"}]},
+                "prompt": """Use Python to set this variable, which you will use throughout this prompt:
+[left_offset_current] = {left_offset_1} 
+                """,
+            },
+            # Second picture.
+            {
+                "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "Second picture"}]},
+                "prompt": """Use Python to set this variable, which you will use throughout this prompt:
+[left_offset_current] = {left_offset_2} 
+                """,
+            # Third picture.
+            },
+            {
+                "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "Third picture"}]},
+                "prompt": """Use Python to set this variable, which you will use throughout this prompt:
+[left_offset_currenturrent] = {left_offset_3}
+                """,
+            },
             {
                 "condition": {"diagram_type": "Generate an image in a chatbot"},
                 "prompt": "- After typing out the preceding information, think of a prompt that can be entered in ChatGPT to generate a diagram illustrating the measurements supplied by the user, with labeled arrows to indicate the appropriate dimensions. This schematic image should include a small nail icon or graphic positioned [nail_height] {dimension_units} off the floor and a distance of [distance] {measurement_units} from the nearest left obstacle. The latter dimension is the distance from the nail to the nearest left obstacle; it is not the distance between the edge of the picture and the nail location. Your prompt should also draw a dashed rectangle corresponding to the picture frame, showing that the picture has a height of {picture_height} and another labeled arrow showing the picture has a hardware drop of {drop_to_hardware}. The lower end of the hardware drop should line up horizontally with the position of the nail. Your prompt should ask ChatGPT to draw this in the style of an architectural blueprint with white lines and text on a blue background. Your prompt should clarify that the diagram should be as easy to follow as possible, with no extraneous text or imagery. Finally, type a message to the user suggesting entering this prompt into ChatGPT.com with GPT‑4o selected to generate an explanatory diagram, with a caveat that accurate image generation is still a challenge for AI models.\n",
             },
             {
-                "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "First picture"}]},
+                "condition": {"diagram_type": "Generate an image from code"},
                 "prompt": """Acting as an expert in visual programming, write some JavaScript using the P5js framework to draw a schematic diagram for hanging a picture on the wall of a house.
 
 The diagram should be styled like an architectural blueprint, with black lines and black text on a white background except where indicated otherwise. Do not use any other color besides black for shapes or text. The diagram should be easy to follow with no extraneous text or imagery. Assume your code will be pasted into the online P5js editor and run as the sketch in the user's browser, so do not include any HTML or CSS, just the contents of the script tag.
@@ -250,7 +271,7 @@ Start by converting the values we've calculated so far into pixels so we can pos
 Remembering that the measurement units for this example are {measurement_units}, use Python to set these pixel equivalents:
 
 - Set [nail_height_px] to the pixel equivalent of [nail_height], rounded to the closest integer.
-- Set [left_offset_1_px] to the pixel equivalent of [left_offset_1_px], rounded to the closest integer.
+- Set [left_offset_current_px] to the pixel equivalent of [left_offset_current], rounded to the closest integer.
 - Set [picture_width_px] to the pixel equivalent of {picture_width}, rounded to the closest integer.
 - Set [picture_height_px] to the pixel equivalent of {picture_height}, rounded to the closest integer.
 - Set [drop_to_hardware_px] to the pixel equivalent of {drop_to_hardware}, rounded to the closest integer.
@@ -262,44 +283,16 @@ Now use Python to make some additional calculations that will help draw the shap
 
 Add a title for the diagram at the very top called "Nail position from floor and left edge". In the lower right corner of the sketch, add a text at the bottom explaining that the picture will rise {drop_to_hardware} {measurement_units} above the nail. For example, you might accomplish this with a command like `text('...', 600, 500, 200, 100)`, 
 
-To represent the position of the nail, place red text consisting of a small letter "X" at a left position of [left_offset_1_px] pixels
+To represent the position of the nail, place red text consisting of a small letter "X" at a left position of [left_offset_current_px] pixels
 and a top of [nail_top_px] pixels. This will be your only use of a color other than black for text and shapes.
 
-Draw a vertical arrow starting at [left_offset_1_px], [nail_top_px] and extending down to [left_offset_1_px], 600. 20 pixels to the right of this line, add a text label indicating the nail is [nail_height] {measurement_units} off the floor. This label should be wrapped in a text() box approximately 200 pixels on a side.
+Draw a vertical arrow starting at [left_offset_current_px], [nail_top_px] and extending down to [left_offset_current_px], 600. 20 pixels to the right of this line, add a text label indicating the nail is [nail_height] {measurement_units} off the floor. This label should be wrapped in a text() box approximately 200 pixels on a side.
 
 Also draw a horizontal arrow from the left edge of the canvas to the "X", with a text label indicating the nail is [left_offset_1] {measurement_units} from the left wall. This label should also be wrapped in a text() box approximately 200 pixels on a side. Be sure to position the text() far enough to the left so that it doesn't overlap this vertical line.
 
 To represent the picture, draw a dashed rectangle whose top is [picture_top_px] pixels from the top of the canvas and is centered [left_offset_1_px] pixels from the left edge of the canvas. The rectangle should have a width of [picture_width_px] pixels and a height of [picture_height_px]. The rectangle should have no fill, with only the black stroke visible.
 
-After generating this code and sharing it with the user, add instructions to paste the code into the P5js web editor at https://editor.p5js.org and click Play.""",
-            },
-            {
-                "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "Second picture"}]},
-                "prompt": """Acting as an expert in visual programming, write some JavaScript using the P5js framework to draw a schematic diagram for hanging a picture on a wall.
-
-To represent the position of the nail, place a small red letter "X" with a labeled vertical arrow indicating the nail is [nail_height] {measurement_units} off the floor and a labeled horizontal arrow indicating the nail is [left_offset_2] {measurement_units} away from the left edge of the canvas. 
-
-Then draw a dashed, transparent rectangle with `noFill()` centered on the "X" horizontally but with the top value {drop_to_hardware} {measurement_units} above the "X", indicating this vertical displacement with another labeled arrow. You don't need to label the width and height of the rectangle, but it is roughly {picture_width_2} {measurement_units} on a side and should be drawn in proportion to the other measurements.
-
-Add a title for the diagram called "Nail position relative to floor and wall, with drop from top of picture shown for reference".
-
-The diagram should be styled like an architectural blueprint, with white lines and text on a blue background, and it should be easy to follow with no extraneous text or imagery. Assume your code will be pasted into the online P5js editor and run as the sketch in the user's browser, so do not include any HTML or CSS, just the contents of the script tag.
-
-Finish with instructions to paste the code into the P5js web editor (https://editor.p5js.org) and click Play.""",
-            },
-            {
-                "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "Third picture"}]},
-                "prompt": """Acting as an expert in visual programming, write some JavaScript using the P5js framework to draw a schematic diagram for hanging a picture on a wall.
-
-To represent the position of the nail, place a small red letter "X" with a labeled vertical arrow indicating the nail is [nail_height] {measurement_units} off the floor and a labeled horizontal arrow indicating the nail is [left_offset_3] {measurement_units} away from the left edge of the canvas. 
-
-Then draw a dashed, transparent rectangle with `noFill()` centered on the "X" horizontally but with the top value {drop_to_hardware} {measurement_units} above the "X", indicating this vertical displacement with another labeled arrow. You don't need to label the width and height of the rectangle, but it is roughly {picture_width_3} {measurement_units} on a side and should be drawn in proportion to the other measurements.
-
-Add a title for the diagram called "Nail position relative to floor and wall, with drop from top of picture shown for reference".
-
-The diagram should be styled like an architectural blueprint, with white lines and text on a blue background, and it should be easy to follow with no extraneous text or imagery. Assume your code will be pasted into the online P5js editor and run as the sketch in the user's browser, so do not include any HTML or CSS, just the contents of the script tag.
-
-Finish with instructions to paste the code into the P5js web editor (https://editor.p5js.org) and click Play.""",
+After generating this code and sharing it with the user, add instructions to visit the P5js web editor at https://editor.p5js.org, delete any existing code in the editor, paste this code, and click Play.""",
             },
         ],
         "ai_response": True,
