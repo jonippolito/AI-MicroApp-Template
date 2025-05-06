@@ -266,9 +266,9 @@ Now tell the user to place the nail at a height of [nail_height] off the floor. 
 
 The diagram should be styled like an architectural blueprint, with black lines and black text on a white background except where indicated otherwise. Do not use any other color besides black for shapes or text. The diagram should be easy to follow with no extraneous text or imagery. Assume your code will be pasted into the online P5js editor and run as the sketch in the user's browser, so do not include any HTML or CSS, just the contents of the script tag.
 
-Start by converting the values we've calculated so far into pixels so we can position some text and shapes in our sketch to indicate the placement of a nail for hanging a picture. You will create a canvas that is 800 pixels wide and 600 pixels tall. This means 600 pixels is the height of a typical wall, or roughly 96 inches or 240 cm. This means converting inches to pixels will require multiplying by 600/96 = 6.25; converting cm to pixels will require multiplying by 600/240 = 2.5.
+Start in the setup() function by create a canvas that is 800 pixels wide and 600 pixels tall. Then declare a series of JavaScript variables that convert the values we've calculated so far into pixels so we can position some text and shapes in our sketch to indicate the placement of a nail for hanging a picture. Assume 600 pixels is the height of a typical wall, or roughly 96 inches or 240 cm. This means converting inches to pixels will require multiplying by 600/96 = 6.25; converting cm to pixels will require multiplying by 600/240 = 2.5.
 
-Remembering that the measurement units for this example are {measurement_units}, use Python to set the following pixel equivalents. Do the calculations exactly, then report the result of each calculation to the user as an integer.
+Remembering that the measurement units for this example are {measurement_units}, on the next lines inside your setup() function set the following pixel equivalents in your P5js sketch:
 
 - Set [nail_height_px] to the pixel equivalent of [nail_height], rounded to the closest integer.
 - Set [left_offset_current_px] to the pixel equivalent of [left_offset_current], rounded to the closest integer.
@@ -276,15 +276,14 @@ Remembering that the measurement units for this example are {measurement_units},
 - Set [picture_height_px] to the pixel equivalent of {picture_height}, rounded to the closest integer.
 - Set [drop_to_hardware_px] to the pixel equivalent of {drop_to_hardware}, rounded to the closest integer.
 
-Now use Python to make some additional calculations that will help draw the shapes:
+In the next lines of your P5js sketch, make these additional calculations that will help draw the shapes:
 
 - Set [nail_top_px] = 600 - [nail_height_px].
 - Set [picture_top_px] = [nail_top_px] - [drop_to_hardware_px].
 
 Add a title for the diagram at the very top called "Nail position from floor and left edge". In the lower right corner of the sketch, add a text at the bottom explaining that the picture will rise {drop_to_hardware} {measurement_units} above the nail. For example, you might accomplish this with a command like `text('...', 600, 500, 200, 100)`, 
 
-To represent the position of the nail, place red text consisting of a small letter "X" at a left position of [left_offset_current_px] pixels
-and a top of [nail_top_px] pixels. This will be your only use of a color other than black for text and shapes.
+To represent the position of the nail, place red text consisting of a small letter "X" at a left position of [left_offset_current_px] pixels and a top of [nail_top_px] pixels. This will be your only use of a color other than black for text and shapes.
 
 Draw a vertical arrow starting at [left_offset_current_px], [nail_top_px] and extending down to [left_offset_current_px], 600. 20 pixels to the right of this line, add a text label indicating the nail is [nail_height] {measurement_units} off the floor. This label should be wrapped in a text() box approximately 200 pixels on a side.
 
