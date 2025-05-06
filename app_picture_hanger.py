@@ -235,28 +235,7 @@ Now tell the user to place the nail at a height of [nail_height] off the floor. 
             },
 		},
         "user_prompt": [
-            # First picture.
-            {
-                "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "First picture"}]},
-                "prompt": """Use Python to set this variable, which you will use throughout this prompt:
-[left_offset_current] = [left_offset_1] 
-                """,
-            },
-            # Second picture.
-            {
-                "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "Second picture"}]},
-                "prompt": """Use Python to set this variable, which you will use throughout this prompt:
-[left_offset_current] = [left_offset_2] 
-                """,
-            # Third picture.
-            },
-            {
-                "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "Third picture"}]},
-                "prompt": """Use Python to set this variable, which you will use throughout this prompt:
-[left_offset_current] = [left_offset_3]
-                """,
-            },
-            {
+             {
                 "condition": {"diagram_type": "Generate an image in a chatbot"},
                 "prompt": "- After typing out the preceding information, think of a prompt that can be entered in ChatGPT to generate a diagram illustrating the measurements supplied by the user, with labeled arrows to indicate the appropriate dimensions. This schematic image should include a small nail icon or graphic positioned [nail_height] {dimension_units} off the floor and a distance of [distance] {measurement_units} from the nearest left obstacle. The latter dimension is the distance from the nail to the nearest left obstacle; it is not the distance between the edge of the picture and the nail location. Your prompt should also draw a dashed rectangle corresponding to the picture frame, showing that the picture has a height of {picture_height} and another labeled arrow showing the picture has a hardware drop of {drop_to_hardware}. The lower end of the hardware drop should line up horizontally with the position of the nail. Your prompt should ask ChatGPT to draw this in the style of an architectural blueprint with white lines and text on a blue background. Your prompt should clarify that the diagram should be as easy to follow as possible, with no extraneous text or imagery. Finally, type a message to the user suggesting entering this prompt into ChatGPT.com with GPT‑4o selected to generate an explanatory diagram, with a caveat that accurate image generation is still a challenge for AI models.\n",
             },
@@ -266,7 +245,27 @@ Now tell the user to place the nail at a height of [nail_height] off the floor. 
 
 The diagram should be styled like an architectural blueprint, with black lines and black text on a white background except where indicated otherwise. Do not use any other color besides black for shapes or text. The diagram should be easy to follow with no extraneous text or imagery. Assume your code will be pasted into the online P5js editor and run as the sketch in the user's browser, so do not include any HTML or CSS, just the contents of the script tag.
 
-Start in the setup() function by create a canvas that is 800 pixels wide and 600 pixels tall. Then declare a series of JavaScript variables that convert the values we've calculated so far into pixels so we can position some text and shapes in our sketch to indicate the placement of a nail for hanging a picture. Assume 600 pixels is the height of a typical wall, or roughly 96 inches or 240 cm. This means converting inches to pixels will require multiplying by 600/96 = 6.25; converting cm to pixels will require multiplying by 600/240 = 2.5.
+Begin at the top of the sketch by setting the following JavaScript variable, which you will use throughout this prompt:
+                """,
+            },
+           # If first picture.
+            {
+                "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "First picture"}]},
+                "prompt": "Set [left_offset_current] = [left_offset_1]",
+            },
+            # If second picture.
+            {
+                "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "Second picture"}]},
+                "prompt": "Set [left_offset_current] = [left_offset_2]",
+            # If third picture.
+            },
+            {
+                "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "Third picture"}]},
+                "prompt": "Set [left_offset_current] = [left_offset_3]",
+            },
+            {
+                "condition": {"diagram_type": "Generate an image from code"},
+                "prompt": """In the setup() function, create a canvas that is 800 pixels wide and 600 pixels tall. Then declare a series of additional JavaScript variables that convert the values we've calculated so far into pixels so we can position some text and shapes in our sketch to indicate the placement of a nail for hanging a picture. Assume 600 pixels is the height of a typical wall, or roughly 96 inches or 240 cm. This means converting inches to pixels will require multiplying by 600/96 = 6.25; converting cm to pixels will require multiplying by 600/240 = 2.5.
 
 Remembering that the measurement units for this example are {measurement_units}, on the next lines inside your setup() function set the following pixel equivalents in your P5js sketch:
 
