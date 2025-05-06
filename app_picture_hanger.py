@@ -239,21 +239,21 @@ Now tell the user to place the nail at a height of [nail_height] off the floor. 
             {
                 "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "First picture"}]},
                 "prompt": """Use Python to set this variable, which you will use throughout this prompt:
-[left_offset_current] = {left_offset_1} 
+[left_offset_current] = 1 * {left_offset_1} 
                 """,
             },
             # Second picture.
             {
                 "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "Second picture"}]},
                 "prompt": """Use Python to set this variable, which you will use throughout this prompt:
-[left_offset_current] = {left_offset_2} 
+[left_offset_current] = 1 * {left_offset_2} 
                 """,
             # Third picture.
             },
             {
                 "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "Third picture"}]},
                 "prompt": """Use Python to set this variable, which you will use throughout this prompt:
-[left_offset_currenturrent] = {left_offset_3}
+[left_offset_current] = 1 * {left_offset_3}
                 """,
             },
             {
