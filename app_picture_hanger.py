@@ -268,7 +268,7 @@ The diagram should be styled like an architectural blueprint, with black lines a
 
 Start by converting the values we've calculated so far into pixels so we can position some text and shapes in our sketch to indicate the placement of a nail for hanging a picture. You will create a canvas that is 800 pixels wide and 600 pixels tall. This means 600 pixels is the height of a typical wall, or roughly 96 inches or 240 cm. This means converting inches to pixels will require multiplying by 600/96 = 6.25; converting cm to pixels will require multiplying by 600/240 = 2.5.
 
-Remembering that the measurement units for this example are {measurement_units}, use Python to set these pixel equivalents:
+Remembering that the measurement units for this example are {measurement_units}, use Python to set the following pixel equivalents. Do the calculations exactly, then report the result of each calculation to the user as an integer.
 
 - Set [nail_height_px] to the pixel equivalent of [nail_height], rounded to the closest integer.
 - Set [left_offset_current_px] to the pixel equivalent of [left_offset_current], rounded to the closest integer.
