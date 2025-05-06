@@ -26,7 +26,7 @@ drop_to_hardware: This will be the distance between the top of the picture to th
 
 available_wall_width: This is the running length of wall space available to mount the picture; it is bounded by obstacles to the left and right such as wall corners, furniture, or other hangings.
 
-When asked to perform a calculation, please use Python to perform the calculation and follow the provided instructions EXACTLY.
+When asked to perform a calculation, please use Python or JavaScript as requested to perform the calculation and follow the provided instructions EXACTLY.
 
 Before reporting any resulting calculation, round any numbers to the closest integer.
 
