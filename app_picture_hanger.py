@@ -181,18 +181,14 @@ In all cases, do not tell the user how to do the calculations; just do the calcu
                 "help": "Measure down from the top to the place where the nail will go, whether a hook or a wire held taut, in the units you chose (inches or cm).",
             },
             "picture_weight": {
-                "type": "selectbox",
-                # "options": ['light (under 5 pounds)', 'medium (5-20 pounds)', 'heavy (over 20 pounds)'],
-                "options": ['light (under 5 pounds)'],
-                # "value": "light (under 5 pounds)",
+                "type": "radio",
+                "options": ['light (under 5 pounds)', 'medium (5-20 pounds)', 'heavy (over 20 pounds)'],
                 "label": "How heavy is the picture?",
                 "help": "Include the frame and glazing (glass or Plexi front}, if any"
             },
             "wall_type": {
-                "type": "selectbox",
-                # "options": ['normal', 'reinforced'],
-                "options": ['normal'],
-                # "value": "normal",
+                "type": "radio",
+                "options": ['normal', 'reinforced'],
                 "label": "What type of wall are you hanging on?",
                 "help": "Most American rooms have normal drywall, but some galleries are reinforced with plywood backing"
             },
