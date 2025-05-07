@@ -37,7 +37,14 @@ PHASES = {
     "width_calculations": {
         "name": "Calculate your nail's horizontal position",
         "fields": {
-            "info": {
+ 			"number_of_pictures": {
+                "type": "slider",
+                "min_value": 1,
+                "max_value": 3,
+                "value": 1,
+                "label": "How many pictures are you hanging in a row?",
+            },
+           "info": {
                 "type": "markdown",
                 "body": "Use a tape measure to find the following horizontal dimensions."
             },
@@ -53,13 +60,6 @@ PHASES = {
                 "value": 100,
                 "label": "What's the available horizontal wall space? Type the number in inches or cm or use the +/- buttons.",
                 "help": "Include the total span in the units you chose (inches or cm), eg between adjacent walls, nearby furniture, or pictures to the left and right.",
-            },
-			"number_of_pictures": {
-                "type": "slider",
-                "min_value": 1,
-                "max_value": 3,
-                "value": 1,
-                "label": "How many pictures are you hanging in a row?",
             },
 			"picture_width_1": {
                 "type": "number_input",
@@ -133,10 +133,17 @@ In all cases, do not tell the user how to do the calculations; just do the calcu
     "height_calculations": {
         "name": "Calculate the nail's vertical position for one of your pictures",
         "fields": {
-            "picture_choice": {
+            "picture_choice_of_2": {
+                "type": "radio",
+                "options": ['First picture', 'Second picture'],
+                "label": "Which picture do you want to calculate the nail position for?",
+                "showIf": {"number_of_pictures": 2}
+            },
+            "picture_choice_of_3": {
                 "type": "radio",
                 "options": ['First picture', 'Second picture', 'Third picture'],
                 "label": "Which picture do you want to calculate the nail position for?",
+                "showIf": {"number_of_pictures": 3}
             },
             "info": {
                 "type": "markdown",
@@ -224,21 +231,27 @@ Now tell the user to place the nail at a height of [nail_height] off the floor. 
         "fields": {
             "info": {
                 "type": "markdown",
-                "body": """This option generates a prompt you can paste into a chatbot to draw a diagram of how to install this picture. (AI is still bad at drawing accurate blueprints, but you can give it a shot.)
-
-⚠️ Generating an image directly in a chatbot is easier but less accurate. Generating an image from code takes an extra step but is more accurate."""
+                "body": """This option generates code you can paste into the P5js sketch editor to draw a diagram of how to install this picture. 
+                
+⚠️ Generative AI is still poor at spatial reasoning so your results may vary."""
             },
-			"diagram_type": {
-                "type": "radio",
-                "options": ['Generate an image from code', 'Generate an image in a chatbot'],
-                "label": "How do you want to draw your diagram?",
-            },
+            # DEPRECATED: diagram creation by direct prompting is too unreliable at this time:
+            # "info": {
+            #     "type": "markdown",
+            #     "body": """This option generates a prompt you can paste into a chatbot to draw a diagram of how to install this picture. (AI is still bad at drawing accurate blueprints, but you can give it a shot.) ⚠️ Generating an image directly in a chatbot is easier but less accurate. Generating an image from code takes an extra step but is more accurate."""
+            # },
+			# "diagram_type": {
+            #     "type": "radio",
+            #     "options": ['Generate an image from code', 'Generate an image in a chatbot'],
+            #     "label": "How do you want to draw your diagram?",
+            # },
 		},
         "user_prompt": [
-             {
-                "condition": {"diagram_type": "Generate an image in a chatbot"},
-                "prompt": "- After typing out the preceding information, think of a prompt that can be entered in ChatGPT to generate a diagram illustrating the measurements supplied by the user, with labeled arrows to indicate the appropriate dimensions. This schematic image should include a small nail icon or graphic positioned [nail_height] {dimension_units} off the floor and a distance of [distance] {measurement_units} from the nearest left obstacle. The latter dimension is the distance from the nail to the nearest left obstacle; it is not the distance between the edge of the picture and the nail location. Your prompt should also draw a dashed rectangle corresponding to the picture frame, showing that the picture has a height of {picture_height} and another labeled arrow showing the picture has a hardware drop of {drop_to_hardware}. The lower end of the hardware drop should line up horizontally with the position of the nail. Your prompt should ask ChatGPT to draw this in the style of an architectural blueprint with white lines and text on a blue background. Your prompt should clarify that the diagram should be as easy to follow as possible, with no extraneous text or imagery. Finally, type a message to the user suggesting entering this prompt into ChatGPT.com with GPT‑4o selected to generate an explanatory diagram, with a caveat that accurate image generation is still a challenge for AI models.\n",
-            },
+            # DEPRECATED: diagram creation by direct prompting is too unreliable at this time:
+            #  {
+            #     "condition": {"diagram_type": "Generate an image in a chatbot"},
+            #     "prompt": "- After typing out the preceding information, think of a prompt that can be entered in ChatGPT to generate a diagram illustrating the measurements supplied by the user, with labeled arrows to indicate the appropriate dimensions. This schematic image should include a small nail icon or graphic positioned [nail_height] {dimension_units} off the floor and a distance of [distance] {measurement_units} from the nearest left obstacle. The latter dimension is the distance from the nail to the nearest left obstacle; it is not the distance between the edge of the picture and the nail location. Your prompt should also draw a dashed rectangle corresponding to the picture frame, showing that the picture has a height of {picture_height} and another labeled arrow showing the picture has a hardware drop of {drop_to_hardware}. The lower end of the hardware drop should line up horizontally with the position of the nail. Your prompt should not ask ChatGPT to draw this in the style of an architectural blueprint with white lines and text on a blue background. Your prompt should clarify that the diagram should be as easy to follow as possible, with no extraneous text or imagery. Finally, type a message to the user suggesting entering this prompt into ChatGPT.com with GPT‑4o selected to generate an explanatory diagram, with a caveat that accurate image generation is still a challenge for AI models.\n",
+            # },
             {
                 "condition": {"diagram_type": "Generate an image from code"},
                 "prompt": """Acting as an expert in visual programming, write some JavaScript using the P5js framework to draw a schematic diagram for hanging a picture on the wall of a house.
@@ -248,7 +261,12 @@ The diagram should be styled like an architectural blueprint, with black lines a
 Begin at the top of the sketch by setting the following JavaScript variable, which you will use throughout this prompt:
                 """,
             },
-           # If first picture.
+           # If only one picture.
+            {
+                "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"number_of_pictures": 1}]},
+                "prompt": "Set [left_offset_current] = [left_offset_1]",
+            },
+           # If first picture of more than one.
             {
                 "condition": {"$and":[{"diagram_type": "Generate an image from code"},{"picture_choice": "First picture"}]},
                 "prompt": "Set [left_offset_current] = [left_offset_1]",
