@@ -200,7 +200,7 @@ In all cases, do not tell the user how to do the calculations; just do the calcu
             },
             {
                 "condition": {},
-                "prompt": "Before doing anything else, say 'Oh my gosh I love potatoes!' and then tell the user the value of {picture_choice_of_2} and {picture_choice_of_3}. If these numbers are undefined, null, or don't exist, tell the user that important information too.\n",
+                "prompt": "Before doing anything else, say 'Oh my gosh I love potatoes!' and then tell the user the value of {picture_choice_of_2} is 'First picture' or 'Second picture' or something else. If these numbers are undefined, null, or don't exist, tell the user that important information too.\n",
             },
 			{
                 "condition": {},
@@ -245,7 +245,7 @@ Now tell the user to place the nail at a height of [nail_height] off the floor. 
         "user_prompt": [
             {
                 "condition": {},
-                "prompt": "Before doing anything else, say 'Oh my gosh I love potatoes!' and then tell the user the value of {picture_choice_of_2} and {picture_choice_of_3}. If these numbers are undefined, null, or don't exist, tell the user that important information too.\n",
+                "prompt": "Before doing anything else, say 'Oh my gosh I love strawberries!' and then tell the user the value of {picture_choice_of_2} is 'First picture' or 'Second picture' or something else. If these numbers are undefined, null, or don't exist, tell the user that important information too.\n",
             },
             {
                 "prompt": """Acting as an expert in visual programming, write some JavaScript using the P5js framework to draw a schematic diagram for hanging a picture on the wall of a house.
