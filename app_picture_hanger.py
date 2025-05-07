@@ -239,6 +239,10 @@ Now tell the user to place the nail at a height of [nail_height] off the floor. 
             },
 		},
         "user_prompt": [
+                        {
+                "condition": {},
+                "prompt": "Before doing anything else, tell the user the value of {picture_choise_of_2} and {picture_choice_of_3}. If these are undefined, null, or don't exist, tell the user that important information too.\n",
+            },
             {
                 "prompt": """Acting as an expert in visual programming, write some JavaScript using the P5js framework to draw a schematic diagram for hanging a picture on the wall of a house.
 
