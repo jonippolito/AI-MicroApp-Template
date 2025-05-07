@@ -30,8 +30,6 @@ When asked to perform a calculation, please use Python or JavaScript as requeste
 
 Before reporting any resulting calculation, round any numbers to the closest integer.
 
-Do not use sample numbers in your calculations; try instead to use the numbers provided by the user, and if one is undefined, warn the user that this value is missing.
-
 Do NOT type the LaTeX-style code for equations; either render formulas as mathematical symbols or omit santax like "\frac" or "\times" or "\text" altogether.
 
 When writing code for a diagram, check to ensure your variables exist before using them. Don't just make up plausible variable names, but use the ones that you have already calculated. If you must use a new parameter, eg to increase the size of a text() box, then set it to a reasonable number or value and explain it in a comment.
@@ -247,7 +245,7 @@ Now tell the user to place the nail at a height of [nail_height] off the floor. 
         "user_prompt": [
             {
                 "condition": {},
-                "prompt": "Before doing anything else, say 'Oh my gosh I love strawberries!' and then tell the user the value of {picture_choice_of_2} is 'First picture' or 'Second picture' or something else. If these numbers are undefined, null, or don't exist, tell the user that important information too.\n",
+                "prompt": "Before doing anything else, say 'Oh my gosh I love strawberries!' and then tell the user the value of {picture_choice_of_2}, which should be is 'First picture' or 'Second picture' or something else. If these numbers are undefined, null, or don't exist, tell the user that important information too.\n",
             },
             {
                 "prompt": """Acting as an expert in visual programming, write some JavaScript using the P5js framework to draw a schematic diagram for hanging a picture on the wall of a house.
@@ -259,19 +257,19 @@ Begin at the top of the sketch by setting the following JavaScript variable, whi
             },
             {
                 "condition": {"number_of_pictures": 1},
-                "prompt": "Tell the user 'Hallelujah!' and set [left_offset_current] = [left_offset_1]",
+                "prompt": "Set [left_offset_current] = [left_offset_1] and add a comment explaining that this is the only picture being hung.",
             },
-            {
-                "condition": {"$or":[{"picture_choice_of_2": "First picture"},{"picture_choice_of_3": "First picture"}]},
-                "prompt": "Tell the user 'Yahoo!' and set  [left_offset_current] = [left_offset_1]",
-            },
-            {
-                "condition": {"$or":[{"picture_choice_of_2": "Second picture"},{"picture_choice_of_3": "Second picture"}]},
-                "prompt": "Tell the user 'Bro!' and set  [left_offset_current] = [left_offset_2]",
-            },
+            # {
+            #     "condition": {"$or":[{"picture_choice_of_2": "First picture"},{"picture_choice_of_3": "First picture"}]},
+            #     "prompt": "Tell the user 'Yahoo!' and set  [left_offset_current] = [left_offset_1]",
+            # },
+            # {
+            #     "condition": {"$or":[{"picture_choice_of_2": "Second picture"},{"picture_choice_of_3": "Second picture"}]},
+            #     "prompt": "Tell the user 'Bro!' and set  [left_offset_current] = [left_offset_2]",
+            # },
             {
                 "condition": {"picture_choice_of_3": "Third picture"},
-                "prompt": "Tell the user 'Amen!' and set  [left_offset_current] = [left_offset_3]",
+                "prompt": "Set  [left_offset_current] = [left_offset_3] and add a comment explaining that you're focusing on the third picture.",
             },
             {
                 "prompt": """In the setup() function, declare a series of additional JavaScript variables that convert the values we've calculated so far into pixels so we can position some text and shapes in our sketch to indicate the placement of a nail for hanging a picture. Assume 600 pixels is the height of a typical wall, or roughly 96 inches or 240 cm. This means converting inches to pixels will require multiplying by 600/96 = 6.25; converting cm to pixels will require multiplying by 600/240 = 2.5.
