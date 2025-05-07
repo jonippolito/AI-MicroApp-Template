@@ -257,7 +257,7 @@ Now tell the user to place the nail at a height of [nail_height] off the floor. 
             {
                 "prompt": """Acting as an expert in visual programming, write some JavaScript using the P5js framework to draw a schematic diagram for hanging a picture on the wall of a house.
 
-The diagram should be styled like an architectural blueprint, with black lines and black text on a white background except where indicated otherwise. Do not use any other color besides black for shapes or text. The diagram should be easy to follow with no extraneous text or imagery. Assume your code will be pasted into the online P5js editor and run as the sketch in the user's browser, so do not include any HTML or CSS, just the contents of the script tag.
+The diagram should be styled like an architectural blueprint, with black lines and black text on a white background except where indicated otherwise. Do not use any other color besides black for shapes or text except when explicitly indicated in this prompt. The diagram should be easy to follow with no extraneous text or imagery. Assume your code will be pasted into the online P5js editor and run as the sketch in the user's browser, so do not include any HTML or CSS, just the contents of the script tag.
 
 Begin at the top of the sketch by setting the following JavaScript variable, which you will use throughout this prompt:
                 """,
@@ -275,7 +275,7 @@ Begin at the top of the sketch by setting the following JavaScript variable, whi
             # If second picture.
             {
                 "condition": {"$or":[{"picture_choice_of_2": "Second picture"},{"picture_choice_of_3": "Second picture"}]},
-                "prompt": "Set [left_offset_current] = [left_offset_2]",
+                "prompt": "Set [left_offset_current] = [left_offset_2] and tell the user 'Hallelujah!'",
             },
             # If third picture.
             {
@@ -300,7 +300,7 @@ In the next lines of your P5js sketch, make these additional calculations that w
 
 Add a title for the diagram at the very top called "Nail position from floor and left edge". In the lower right corner of the sketch, add a text at the bottom explaining that the picture will rise {drop_to_hardware} {measurement_units} above the nail. For example, you might accomplish this with a command like `text('...', 600, 500, 200, 100)`, 
 
-To represent the position of the nail, place red text consisting of a small letter "X" at a left position of [left_offset_current_px] pixels and a top of [nail_top_px] pixels. This will be your only use of a color other than black for text and shapes.
+To represent the position of the nail, place red text consisting of a small letter "X" at a left position of [left_offset_current_px] pixels and a top of [nail_top_px] pixels. This is the only time you will use the color red; all other text and shapes will use only black. Therefore consider wrapping this text() in a push() and pop() command to set the color to red, then reset it back to black.
 
 Draw a vertical arrow starting at [left_offset_current_px], [nail_top_px] and extending down to [left_offset_current_px], 600. 20 pixels to the right of this line, add a text label indicating the nail is [nail_height] {measurement_units} off the floor. This label should be wrapped in a text() box approximately 200 pixels on a side.
 
