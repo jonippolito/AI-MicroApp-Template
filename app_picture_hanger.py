@@ -257,19 +257,19 @@ Begin at the top of the sketch by setting the following JavaScript variable, whi
             },
             {
                 "condition": {"number_of_pictures": 1},
-                "prompt": "Set [left_offset_current] = [left_offset_1]",
+                "prompt": "Tell the user 'Hallelujah!' and set [left_offset_current] = [left_offset_1]",
             },
             {
                 "condition": {"$or":[{"picture_choice_of_2": "First picture"},{"picture_choice_of_3": "First picture"}]},
-                "prompt": "Set [left_offset_current] = [left_offset_1]",
+                "prompt": "Tell the user 'Yahoo!' and set  [left_offset_current] = [left_offset_1]",
             },
             {
                 "condition": {"$or":[{"picture_choice_of_2": "Second picture"},{"picture_choice_of_3": "Second picture"}]},
-                "prompt": "Set [left_offset_current] = [left_offset_2] and tell the user 'Hallelujah!'",
+                "prompt": "Tell the user 'Bro!' and set  [left_offset_current] = [left_offset_2]",
             },
             {
                 "condition": {"picture_choice_of_3": "Third picture"},
-                "prompt": "Set [left_offset_current] = [left_offset_3]",
+                "prompt": "Tell the user 'Amen!' and set  [left_offset_current] = [left_offset_3]",
             },
             {
                 "prompt": """In the setup() function, create a canvas that is 800 pixels wide and 600 pixels tall. Then declare a series of additional JavaScript variables that convert the values we've calculated so far into pixels so we can position some text and shapes in our sketch to indicate the placement of a nail for hanging a picture. Assume 600 pixels is the height of a typical wall, or roughly 96 inches or 240 cm. This means converting inches to pixels will require multiplying by 600/96 = 6.25; converting cm to pixels will require multiplying by 600/240 = 2.5.
