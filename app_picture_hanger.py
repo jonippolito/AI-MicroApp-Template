@@ -30,6 +30,8 @@ When asked to perform a calculation, please use Python or JavaScript as requeste
 
 Before reporting any resulting calculation, round any numbers to the closest integer.
 
+Do not use sample numbers in your calculations; try instead to use the numbers provided by the user, and if one is undefined, warn the user that this value is missing.
+
 Do NOT type the LaTeX-style code for equations; either render formulas as mathematical symbols or omit santax like "\frac" or "\times" or "\text" altogether.
 
 When writing code for a diagram, check to ensure your variables exist before using them. Don't just make up plausible variable names, but use the ones that you have already calculated. If you must use a new parameter, eg to increase the size of a text() box, then set it to a reasonable number or value and explain it in a comment.
@@ -272,10 +274,11 @@ Begin at the top of the sketch by setting the following JavaScript variable, whi
                 "prompt": "Tell the user 'Amen!' and set  [left_offset_current] = [left_offset_3]",
             },
             {
-                "prompt": """In the setup() function, create a canvas that is 800 pixels wide and 600 pixels tall. Then declare a series of additional JavaScript variables that convert the values we've calculated so far into pixels so we can position some text and shapes in our sketch to indicate the placement of a nail for hanging a picture. Assume 600 pixels is the height of a typical wall, or roughly 96 inches or 240 cm. This means converting inches to pixels will require multiplying by 600/96 = 6.25; converting cm to pixels will require multiplying by 600/240 = 2.5.
+                "prompt": """In the setup() function, declare a series of additional JavaScript variables that convert the values we've calculated so far into pixels so we can position some text and shapes in our sketch to indicate the placement of a nail for hanging a picture. Assume 600 pixels is the height of a typical wall, or roughly 96 inches or 240 cm. This means converting inches to pixels will require multiplying by 600/96 = 6.25; converting cm to pixels will require multiplying by 600/240 = 2.5.
 
 Remembering that the measurement units for this example are {measurement_units}, on the next lines inside your setup() function set the following pixel equivalents in your P5js sketch:
 
+- Set [canvas_width_px] to the pixel equivalent of {available_wall_width}, rounded to the closest integer.
 - Set [nail_height_px] to the pixel equivalent of [nail_height], rounded to the closest integer.
 - Set [left_offset_current_px] to the pixel equivalent of [left_offset_current], rounded to the closest integer.
 - Set [picture_width_px] to the pixel equivalent of {picture_width}, rounded to the closest integer.
@@ -286,6 +289,8 @@ In the next lines of your P5js sketch, make these additional calculations that w
 
 - Set [nail_top_px] = 600 - [nail_height_px].
 - Set [picture_top_px] = [nail_top_px] - [drop_to_hardware_px].
+
+Now create a canvas that is [canvas_width_px] pixels wide and 600 pixels tall. Give the canvas an azure background.
 
 Add a title for the diagram at the very top called "Nail position from floor and left edge". In the lower right corner of the sketch, add a text at the bottom explaining that the picture will rise {drop_to_hardware} {measurement_units} above the nail. For example, you might accomplish this with a command like `text('...', 600, 500, 200, 100)`, 
 
