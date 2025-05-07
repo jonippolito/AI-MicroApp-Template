@@ -31,6 +31,8 @@ When asked to perform a calculation, please use Python or JavaScript as requeste
 Before reporting any resulting calculation, round any numbers to the closest integer.
 
 Do NOT type the LaTeX-style code for equations; either render formulas as mathematical symbols or omit santax like "\frac" or "\times" or "\text" altogether.
+
+When writing code for a diagram, check to ensure your variables exist before using them. Don't just make up plausible variable names, but use the ones that you have already calculated. If you must use a new parameter, eg to increase the size of a text() box, then set it to a reasonable number or value and explain it in a comment.
 """
 
 PHASES = {
@@ -181,12 +183,14 @@ In all cases, do not tell the user how to do the calculations; just do the calcu
             "picture_weight": {
                 "type": "selectbox",
                 "options": ['light (under 5 pounds)', 'medium (5-20 pounds)', 'heavy (over 20 pounds)'],
+                "value": "light (under 5 pounds)",
                 "label": "How heavy is the picture?",
                 "help": "Include the frame and glazing (glass or Plexi front}, if any"
             },
             "wall_type": {
                 "type": "selectbox",
                 "options": ['normal', 'reinforced'],
+                "value": "normal",
                 "label": "What type of wall are you hanging on?",
                 "help": "Most American rooms have normal drywall, but some galleries are reinforced with plywood backing"
             },
@@ -204,15 +208,15 @@ Now tell the user to place the nail at a height of [nail_height] off the floor. 
                 """,
             },
             {
-                "condition": {"$and":[{"picture_weight": "light"},{"wall_type": "normal"}]},
+                "condition": {"$and":[{"picture_weight": "light (under 5 pounds)"},{"wall_type": "normal"}]},
                 "prompt": "- Tell the user a simple nail or adhesive hook should suffice for a lightweight picture.\n",
             },
             {
-                "condition": {"$and":[{"picture_weight": "medium"},{"wall_type": "normal"}]},
+                "condition": {"$and":[{"picture_weight": "medium (5-20 pounds)"},{"wall_type": "normal"}]},
                 "prompt": "- Recommend a picture hook or wall anchor to compensate for a medium-weight picture.  Also mention that you can place painter's tape on the wall where you plan to drill or hammer to prevent the wall from chipping and making dust. \n",
             },
             {
-                "condition": {"$and":[{"picture_weight": "heavy"},{"wall_type": "normal"}]},
+                "condition": {"$and":[{"picture_weight": "heavy (over 20 pounds"},{"wall_type": "normal"}]},
                 "prompt": "- Recommend for a heavy picture that the user hammer one or more nails into one of the vertical wooden studs behind the wallboard, adding guidance that American homes are usually built with studs placed every 16 inches on-center.\n",
             },
             {
@@ -227,7 +231,7 @@ Now tell the user to place the nail at a height of [nail_height] off the floor. 
         #"read_only_prompt": False
     },
     "diagram_generation": {
-        "name": "Generate a diagram (optional)",
+        "name": "Generate a diagram (experimental)",
         "fields": {
             "info": {
                 "type": "markdown",
