@@ -267,17 +267,17 @@ Begin at the top of the sketch by setting the following JavaScript variable, whi
             },
            # If first picture of more than one.
             {
-                "condition": {"picture_choice": "First picture"},
+                "condition": {"$or":[{"picture_choice_of_2": "First picture"},{"picture_choice_of_3": "First picture"}]},
                 "prompt": "Set [left_offset_current] = [left_offset_1]",
             },
             # If second picture.
             {
-                "condition": {"picture_choice": "Second picture"},
+                "condition": {"$or":[{"picture_choice_of_2": "Second picture"},{"picture_choice_of_3": "Second picture"}]},
                 "prompt": "Set [left_offset_current] = [left_offset_2]",
-            # If third picture.
             },
+            # If third picture.
             {
-                "condition": {"picture_choice": "Third picture"},
+                "condition": {"picture_choice_of_3": "Third picture"},
                 "prompt": "Set [left_offset_current] = [left_offset_3]",
             },
             {
